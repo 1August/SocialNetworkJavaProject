@@ -18,11 +18,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @ManyToOne
+    @JoinColumn(name = "author_id")
     private User author;
     private String title;
     private String content;
     private Date createdDate;
     @OneToMany
+    @JoinColumn(name = "comment_id")
     private List<Comment> comments;
     private String visibleFor;
     private boolean commentsAvailable;
