@@ -1,55 +1,29 @@
 package com.example.socialnetwork.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
+
 @Entity
 @Table(name = "post")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="post_id")
-    private Long id;
-    private String text;
-    private String comment;
-    @JoinTable(
-            name = "username",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private String username;
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "author_user_id")
+    private User author;
+    private String title;
+    private String content;
+    private Date createdDate;
+    private List<Comment> comments;
+    private String visibleFor;
+    private boolean commentsAvailable;
 }
