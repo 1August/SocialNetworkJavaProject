@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PagesController {
     @GetMapping("/")
     String indexGet(){
-        return "index";
+        return "userProfile";
     }
 }
