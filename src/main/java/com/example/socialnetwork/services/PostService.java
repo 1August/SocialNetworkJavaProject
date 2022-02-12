@@ -3,11 +3,12 @@ package com.example.socialnetwork.services;
 import com.example.socialnetwork.models.Post;
 import com.example.socialnetwork.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class PostService {
     @Autowired
     PostRepository postRepository;
