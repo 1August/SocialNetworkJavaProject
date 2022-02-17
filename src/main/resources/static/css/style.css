@@ -1,4 +1,4 @@
-.body{
+body{
     margin: 0;
     padding: 0;
 }
@@ -58,12 +58,11 @@ main .container{
 }
 
 main .left{
+    padding: 1rem;
     width: calc(40% - .5rem);
 }
 
 main .left, main .right{
-    padding: 1rem;
-
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 10px;
 }
@@ -75,37 +74,48 @@ main .left, main .right{
 main .right{
     width: calc(60% - 1rem);
 }
-.postContainer{
-    width: 100%;
 
 
+.newPost{
+    padding: 0 0 1.5rem;
 }
-.post{
+
+.newPost :is(input, textarea){
     width: 100%;
-    border: 1px solid transparent;
+}
+
+.newPost input{
+    margin: 0 0 1rem;
+}
+
+
+
+.post{
     border-radius: 0.5rem;
-    margin-bottom: 25px;
-    padding: 1rem 0.5rem;
     background-color: #acacac;
 }
-.postTitle{
-    text-align: center;
+
+.post + .post{
+    margin: .5rem 0 0;
 }
-.newComment{
+
+.newComment textarea{
     width: 100%;
-    padding: .5rem 0.25rem;
-    box-sizing: border-box;
-    margin: .5rem 0;
+    resize: vertical;
+    max-height: 200px;
 
 }
+.newComment button{
+
+}
+
 .comments{
     width: 80%;
-    height: auto;
-    margin: 25px auto;
+    margin: 0 auto;
 }
-.comment{
-
-    margin: 1rem 0;
+.comment + .comment{
+    border-top: 1px solid rgba(0, 0, 0, .4);
+    margin: .5rem 0 0;
 }
 
 

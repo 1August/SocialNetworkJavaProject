@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +8,7 @@
 
 </head>
 <body>
-<h1><center>Adding a new post</h1>
+<h1>Adding a new post</h1>
 <div class="container">
     <form action="#"  th:action="@{/add}" th:object="${post}" method="post">
 
@@ -34,7 +33,7 @@
             <label>Created Date:</label>
             <input type="date"   class="form-control" th:field="*{createdDate}" />
         </div>
-        <div class="form-group">
+        <div class="form-group" th:if="*{visibleFor}">
             <label>Visible for</label>
             <input type="date"   class="form-control" th:field="*{visibleFor}" />
         </div>

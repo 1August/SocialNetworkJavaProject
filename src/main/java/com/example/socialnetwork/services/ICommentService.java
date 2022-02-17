@@ -1,4 +1,4 @@
 package com.example.socialnetwork.services;
 
-public interface ICommentServiceImpl {
+public interface ICommentService {
 }

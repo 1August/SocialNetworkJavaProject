@@ -1,5 +1,5 @@
 package com.example.socialnetwork.services;
-import com.example.socialnetwork.models.Post;
+import com.example.socialnetwork.entities.Post;
 import java.util.List;
 
 

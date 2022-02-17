@@ -1,5 +1,6 @@
-package com.example.socialnetwork.models;
+package com.example.socialnetwork.entities;
 
+import com.example.socialnetwork.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

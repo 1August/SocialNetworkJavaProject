@@ -1,7 +1,9 @@
 package com.example.socialnetwork.repository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.socialnetwork.models.User;
-public interface UserRepository extends JpaRepository <User, Integer> {
-    User findUserById(Integer id);
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.socialnetwork.entities.User;
+
+public interface UserRepository extends JpaRepository <User, Integer> {
+    User getUserById(Integer id);
+    User getUserByEmail(String email);
 }

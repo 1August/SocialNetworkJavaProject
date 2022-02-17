@@ -1,6 +1,10 @@
 package com.example.socialnetwork.services;
-import java.util.List;
-import com.example.socialnetwork.models.User;
+
+import com.example.socialnetwork.entities.User;
+
 public interface IUserService {
-    List<User> findAllUsers();
+//    List<User> findAllUsers();
+
+    User getUserById(Integer userId);
+    User getUserByEmail(String email);
 }
