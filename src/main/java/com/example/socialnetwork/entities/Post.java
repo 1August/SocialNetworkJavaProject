@@ -27,4 +27,17 @@ public class Post {
     private List<Comment> comments;
     private String visibleFor;
     private boolean commentsAvailable;
+
+    public Post( User author, String title, String content, Date createdDate, List<Comment> comments,
+                 String  visibleFor, boolean commentsAvailable
+    ){
+        this.author = author;
+        this.title= title;
+        this.content = content;
+        this.createdDate = createdDate;
+        this.comments = comments;
+        this.visibleFor = visibleFor;
+        this.commentsAvailable = commentsAvailable;
+
+    }
 }

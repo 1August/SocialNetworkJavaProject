@@ -2,7 +2,9 @@ package com.example.socialnetwork.controllers;
 
 
 import com.example.socialnetwork.entities.Post;
+import com.example.socialnetwork.entities.User;
 import com.example.socialnetwork.services.PostService;
+import com.example.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +19,15 @@ public class UserController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
-    String indexGet(){
+    String indexGet(Model model){
+        model.addAttribute("nameSurname", "Ivan Ivanov");
+        model.addAttribute("email", "example@mail.com");
         return "userProfile";
     }
-
     @GetMapping("/newPost")
     public String newPostGet(Model model){
         Post post=new Post();
@@ -34,4 +40,11 @@ public class UserController {
         postService.savePost(post);
         return "redirect:/user";
     }
+
+    @PostMapping("/addFriend")
+    public String addFriendToUser(User user){
+        userService.addFriendToUser(user);
+        return "redirect:/user";
+    }
+
 }

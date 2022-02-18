@@ -1,3 +1,5 @@
+package com.example.socialnetwork.WebSocket;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.DefaultContentTypeResolver;
@@ -18,16 +20,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker( "/user");
-        config.setApplicationDestinationPrefixes("/app");
+//        config.setApplicationDestinationPrefixes("/app");
         config.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry
-                .addEndpoint("/ws")
-                .setAllowedOrigins("*")
-                .withSockJS();
+        registry.addEndpoint("/ws").withSockJS();
     }
 
     @Override

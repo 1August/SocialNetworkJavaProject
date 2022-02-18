@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String first_name;
     private String last_name;
@@ -22,7 +22,7 @@ public class User {
     private String password;
     @ManyToMany
     private List<Post> posts;
-    @ManyToMany
+    @OneToMany
     private List<User> friends;
     @ManyToMany
     private List<User> requestedFriends;
