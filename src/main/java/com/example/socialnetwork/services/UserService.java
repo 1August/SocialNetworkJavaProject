@@ -14,8 +14,6 @@ public class UserService implements IUserService{
 //    public List<User> findAllUsers() {
 //        return userRepository.findAll();
 //
-
-
     public User saveUser(User newUser) {
         User user = userRepository.save(newUser);
         return user;
@@ -43,9 +41,6 @@ public class UserService implements IUserService{
     public User getUserByEmail(String email){
         return userRepository.getUserByEmail(email);
     }
-
-
-
 
 
 }
