@@ -65,11 +65,14 @@
         </div>
         <div class="rightNav">
             <ul>
-                <li><a href="#">Link1</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link4</a></li>
+                <ul>
+                    <li><a th:href="@{'/'}" th:unless="${user}">Home</a></li>
+                    <li><a th:href="@{'/user/' + *{user.id}}" th:if="${user}">Home</a></li>
+                    <li><a href="#">Link3</a></li>
+                    <li><a th:href="@{/register}">Register</a></li>
+                    <li><a th:href="@{/login}">Login</a></li>
+                    <li><a th:href="@{/logout}">Logout</a></li>
+                </ul>
             </ul>
         </div>
     </div>

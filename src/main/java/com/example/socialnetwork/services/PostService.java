@@ -15,12 +15,6 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    UserService userService;
-
     public Post savePost(Post post) {
         postRepository.save(post);
         return post;
@@ -30,16 +24,15 @@ public class PostService {
         return postRepository.getPostById(id);
     }
     public List<Post> getPostsOfUser(Integer userId){
-        User user = userService.getUserById(userId);
-        return user.getPosts();
+        return postRepository.getAllByAuthorId(userId);
     }
 
     public Post getPostByTitle(String title) {
         return postRepository.getPostByTitle(title);
     }
 
-    public Post getPostByAuthor(String email) {
-        return postRepository.getPostByAuthor(email);
+    public Post getPostByAuthorId(Integer userId) {
+        return postRepository.getPostByAuthorId(userId);
     }
 
 

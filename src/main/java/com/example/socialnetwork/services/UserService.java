@@ -1,11 +1,14 @@
 package com.example.socialnetwork.services;
 
 import com.example.socialnetwork.entities.Post;
+import com.example.socialnetwork.repository.PostRepository;
 import com.example.socialnetwork.repository.UserRepository;
 import com.example.socialnetwork.entities.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -13,13 +16,17 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
-    PostService postService;
+    PostRepository postRepository;
 
-    public User saveUser(User newUser) {
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public User saveUser(User newUser) throws Exception {
+        if (userRepository.getUserByEmail(newUser.getEmail()) != null) throw new Exception("Login exists!");
         User user = userRepository.save(newUser);
         return user;
     }
-
 
     public void addFriend(Integer userId, Integer friendId) throws Exception {
         if (userId == null || friendId == null) throw new Exception("User is null");
@@ -33,14 +40,6 @@ public class UserService {
         userRepository.save(friend);
     }
 
-    public Post savePostInUser(Integer userId, Post post) {
-        User user = userRepository.getUserById(userId);
-//        Post postSaved = postService.savePost(post);
-
-        user.addPostToUser(post);
-        return post;
-    }
-
     public User getUserById(Integer userId) {
         return userRepository.getUserById(userId);
     }
@@ -49,5 +48,14 @@ public class UserService {
         return userRepository.getUserByEmail(email);
     }
 
+    public Post savePostInUser(Post post) {
+        User user = userRepository.getUserById(post.getAuthorId().getId());
 
+        postRepository.save(post);
+        return post;
+    }
+
+    public User getUserByEmailAndPassword(String email, String password){
+        return userRepository.getUserByEmailAndPassword(email, password);
+    }
 }

@@ -3,15 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/index.css}">
-
-    <!--    <link th:type="module" rel="stylesheet" th:href="@{/css/webSocket.css}">-->
-    <!--    <script th:src="@{/js/jquery.mini.js}" defer></script>-->
-    <!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
-    <!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
-    <!--    <script th:type="module" th:src="sockjs-client"></script>-->
-    <!--    <script th:type="module" src="stompjs"></script>-->
-
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js" defer></script>
     <script th:type="module" th:src="@{/js/stomp.js}" defer></script>
@@ -44,13 +36,16 @@
 
 <main>
     <div class="container">
-        <div class="friends-wrapper">
-            <div class="friends">
-                <div class="friend" th:each="friend: ${allUsers}">
-                    <a th:href="@{''}"
-                       th:text='${friend.first_name + " " + friend.last_name + " - " + friend.email}'></a>
-                </div>
-            </div>
+        <div class="loginForm">
+            <form th:action="@{/login}" method="post">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="mail@example.com" name="email">
+
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="***" name="password">
+
+                <input type="submit" th:value="Submit">
+            </form>
         </div>
     </div>
 </main>

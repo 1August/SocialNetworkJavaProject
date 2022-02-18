@@ -47,14 +47,6 @@ nav a {
     text-decoration: none;
 }
 
-main .container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-
-    padding: 10px 0;
-}
-
 main .left {
     padding: 1rem;
     width: calc(40% - 0.5rem);
@@ -139,21 +131,11 @@ footer a {
 
 /* FRIENDSLIST */
 
-.container1 {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
-}
 .friends {
     display: grid;
-    width: 100%;
     grid-template-columns: repeat(3, 1fr);
 
-    grid-row-gap: 1rem;
-    grid-column-gap: 0.5rem;
-    margin: 1rem 0;
+    grid-gap: 1rem .5rem;
 }
 .friend {
     border: 1px solid black;
@@ -164,5 +146,4 @@ footer a {
 .friend a {
     text-decoration: none;
     color: black;
-    font-size: 1.1rem;
 }

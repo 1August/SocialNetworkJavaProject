@@ -31,9 +31,9 @@ public class Post {
     private String visibleFor;
     private boolean commentsAvailable;
 
-    public Post(User author, String title, String content, Date createdDate){
-        this.author = author;
-        this.title= title;
+    public Post(User authorId, String title, String content, Date createdDate){
+        this.authorId = authorId;
+        this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.comments = new ArrayList<>();
@@ -45,5 +45,20 @@ public class Post {
     public Post addCommentToPost(Comment comment){
         comments.add(comment);
         return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", authorId=" + authorId.getId() +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createdDate=" + createdDate +
+                ", comments=" + comments +
+                ", visibleFor='" + visibleFor + '\'' +
+                ", commentsAvailable=" + commentsAvailable +
+                '}';
     }
 }

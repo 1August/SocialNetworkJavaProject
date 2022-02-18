@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.socialnetwork.entities.User;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping
+
 public class MessageController {
 
     @Autowired
@@ -37,8 +39,9 @@ public class MessageController {
     CommentService commentService;
 
     @MessageMapping("/post")
-    String processPost(@Payload ResponsePost responsePost){
-        User user =  userService.getUserByEmail(responsePost.getEmail());
+//    @SendTo("/user/1")
+    void processPost(@Payload ResponsePost responsePost){
+        User user = userService.getUserByEmail(responsePost.getEmail());
 
 
 //        LocalDate localDate = LocalDate.now();
@@ -47,13 +50,13 @@ public class MessageController {
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
-        Post post = new Post(user, responsePost.getTitle(),responsePost.getContent(), date);
-        userService.savePostInUser(user.getId(), post);
+        Post post = new Post(user, responsePost.getTitle(), responsePost.getContent(), date);
+
+        userService.savePostInUser(post);
 
 //        List<Post> posts = postService.getPostsOfUser(user.getId());
 //        model.addAttribute("user", user);
 
-        return "redirect:/user/" + user.getId();
     }
 
    @MessageMapping("/{postId}/comment")

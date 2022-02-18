@@ -41,13 +41,23 @@ public class User {
         this.incomeFriends = new ArrayList<>();
     }
 
-    public void addPostToUser(Post post){
-        posts.add(post);
-    }
-
     public void addFriend(User friend) {
         this.friends.add(friend);
         friend.getFriends().add(this);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", posts=" + posts +
+                ", friends=" + friends +
+                ", requestedFriends=" + requestedFriends +
+                ", incomeFriends=" + incomeFriends +
+                '}';
+    }
 }

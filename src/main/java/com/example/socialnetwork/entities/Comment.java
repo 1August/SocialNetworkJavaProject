@@ -1,6 +1,5 @@
 package com.example.socialnetwork.entities;
 
-import com.example.socialnetwork.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +26,15 @@ public class Comment {
         this.author = author;
         this.content = content;
         this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", authorId=" + author.getId() +
+                ", content='" + content + '\'' +
+                ", createdDate=" + createdDate +
+                '}';
     }
 }
