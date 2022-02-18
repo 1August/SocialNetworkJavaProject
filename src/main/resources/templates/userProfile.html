@@ -3,275 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:type="module" rel="stylesheet" th:href="@{/css/webSocket.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <script th:src="@{/js/jquery.mini.js}"></script>
-    <script th:src="@{/js/app.js}"></script>
+<!--    <script th:src="@{/js/jquery.mini.js}" defer></script>-->
+<!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
+<!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
+<!--    <script th:type="module" th:src="sockjs-client"></script>-->
+<!--    <script th:type="module" src="stompjs"></script>-->
+
+    <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body>
 
-<!--<style>-->
-<!--    body{-->
-<!--        margin: 0;-->
-<!--        padding: 0;-->
-<!--    }-->
-
-<!--    .container{-->
-<!--        width: 90%;-->
-<!--        margin: 0 auto;-->
-<!--    }-->
-
-<!--    nav{-->
-<!--        background-color: #acacac;-->
-<!--    }-->
-
-<!--    nav .container{-->
-<!--        padding: 10px 0;-->
-
-<!--        display: flex;-->
-<!--        align-items: center;-->
-<!--        justify-content: space-between;-->
-<!--    }-->
-
-<!--    .leftNav{-->
-<!--        width: 20%;-->
-<!--    }-->
-
-<!--    .logo{-->
-<!--        width: 100px;-->
-<!--    }-->
-
-<!--    .rightNav{-->
-<!--        width: 60%;-->
-<!--    }-->
-
-<!--    ul{-->
-<!--        display: flex;-->
-<!--        align-items: center;-->
-<!--        justify-content: space-between;-->
-
-<!--        list-style: none;-->
-<!--        margin: 0;-->
-<!--        padding: 0;-->
-<!--    }-->
-
-<!--    nav a{-->
-<!--        color: #000;-->
-<!--        text-decoration: none;-->
-<!--    }-->
-
-
-
-<!--    main .container{-->
-<!--        display: flex;-->
-<!--        justify-content: space-between;-->
-<!--        gap: 1rem;-->
-
-<!--        padding: 10px 0;-->
-<!--    }-->
-
-<!--    main .left{-->
-<!--        padding: 1rem;-->
-<!--        width: calc(40% - .5rem);-->
-<!--    }-->
-
-<!--    main .left, main .right{-->
-<!--        border: 1px solid rgba(0, 0, 0, .1);-->
-<!--        border-radius: 10px;-->
-<!--    }-->
-
-<!--    .profileImg{-->
-<!--        width: 100%;-->
-<!--    }-->
-
-<!--    main .right{-->
-<!--        width: calc(60% - 1rem);-->
-<!--    }-->
-
-
-<!--    .newPost{-->
-<!--        padding: 0 0 1.5rem;-->
-<!--    }-->
-
-<!--    .newPost :is(input, textarea){-->
-<!--        width: 100%;-->
-<!--    }-->
-
-<!--    .newPost input{-->
-<!--        margin: 0 0 1rem;-->
-<!--    }-->
-
-
-
-<!--    .post{-->
-<!--        border-radius: 0.5rem;-->
-<!--        background-color: #acacac;-->
-<!--    }-->
-
-<!--    .post + .post{-->
-<!--        margin: .5rem 0 0;-->
-<!--    }-->
-
-<!--    .newComment textarea{-->
-<!--        width: 100%;-->
-<!--        resize: vertical;-->
-<!--        max-height: 200px;-->
-
-<!--    }-->
-<!--    .newComment button{-->
-
-<!--    }-->
-
-<!--    .comments{-->
-<!--        width: 80%;-->
-<!--        margin: 0 auto;-->
-<!--    }-->
-<!--    .comment + .comment{-->
-<!--        border-top: 1px solid rgba(0, 0, 0, .4);-->
-<!--        margin: .5rem 0 0;-->
-<!--    }-->
-
-
-
-<!--    footer{-->
-<!--        background-color: #333;-->
-<!--        color: #fff;-->
-
-<!--        padding: 1rem 0;-->
-<!--    }-->
-
-<!--    footer ul{-->
-<!--        display: grid;-->
-<!--        grid-template-columns: repeat(4, 1fr);-->
-<!--        grid-gap: .5rem;-->
-
-<!--        list-style: none;-->
-<!--        padding: 0;-->
-<!--        margin: 0;-->
-<!--    }-->
-
-<!--    footer p{-->
-<!--        padding: 0;-->
-<!--    }-->
-
-<!--    footer a{-->
-<!--        color: #fff;-->
-<!--    }-->
-<!--</style>-->
-
-<nav>
-    <div class="container">
-        <div class="leftNav">
-            <img src="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png" alt="" class="logo">
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="rightNav">
-            <ul>
-                <li><a href="#">Link1</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link4</a></li>
-            </ul>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">What is your name?</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                </div>
+                <button id="send" class="btn btn-default" type="submit">Send</button>
+            </form>
         </div>
     </div>
-</nav>
-
-<main>
-    <div class="container">
-        <div class="left">
-            <div class="profileDetails">
-                <div class="profileImage">
-                    <img class="profileImg" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"
-                         alt="">
-                </div>
-                <div class="profileInfo">
-                    <h1 id="name">Name Surname</h1>
-                    <h3>email@example.com</h3>
-                </div>
-            </div>
-            <div class="links">
-                <p><a href="#">Friends</a></p>
-                <p><a href="#">Friends</a></p>
-                <p><a href="#">Friends</a></p>
-            </div>
-        </div>
-        <div class="right">
-
-            <div class="newPost">
-                <h1>Create a new Post</h1>
-                <form id="postForm">
-                    <label for="postTitle">Post Title</label>
-                    <input id="postTitle" type="text">
-
-                    <label for="postContent">Content</label>
-                    <textarea id="postContent"></textarea>
-
-                    <input th:type="submit">Create</input>
-                </form>
-            </div>
-
-            <div class="postContainer">
-
-                <div class="post">
-                    <h1 class="postTitle">Akbala</h1>
-                    <p class="postContent">
-                        Этот кулинарный шедевр, несмотря на свою колоссальную популярность, не имеет однозначного
-                        рецепта приготовления, но мы постарались подобрать рецепт, который обязательно порадует вас
-                        своим вкусом.
-                        Тесто для лагмана предлагаем приобрести готовое, так как процесс приготовления его не столь
-                        быстрый, как нам хотелось бы.
-
-                        Приблизительная стоимость готового блюда — 32 000 сум.*
-
-                        *стоимость актуальна на момент публикации рецепта.
-                    </p>
-                    <h5 class="postAuthor">
-                        Ayau - <span class="postCreatedDate">25.08.2025</span>
-                    </h5>
-                    <div class="newComment">
-                        <textarea></textarea>
-                        <button class="submit">Send</button>
-                    </div>
-
-
-
-                    <div class="comments">
-                        <h3>Comments:</h3>
-                        <div class="comment">
-                            <h3 class="commentAuthor">Maks</h3>
-                            <p class="commentDate">15.09.2025</p>
-                            <p class="message">Если жидкости в казане мало, то необходимо налить 120 миллилитров воды,
-                                посолить, поперчить и тушить 10 минут на небольшом огне.
-
-                                Готовую подливу разложить на тарелки поверх лагмана.</p>
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
         </div>
     </div>
-</main>
+</div>
 
-<footer>
-    <div class="container">
-        <div class="links">
-            <ul>
-                <li><a href="#">Link1</a></li>
-                <li><a href="#">Link2</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link3</a></li>
-                <li><a href="#">Link4</a></li>
-                <li><a href="#">Link5</a></li>
-            </ul>
-        </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, quidem.</p>
-    </div>
-</footer>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<nav>-->
+<!--    <div class="container">-->
+<!--        <div class="leftNav">-->
+<!--            <img src="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png" alt="" class="logo">-->
+<!--        </div>-->
+<!--        <div class="rightNav">-->
+<!--            <ul>-->
+<!--                <li><a href="#">Link1</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link4</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<main>-->
+<!--    <div class="container">-->
+<!--        <div class="left">-->
+<!--            <div class="profileDetails">-->
+<!--                <div class="profileImage">-->
+<!--                    <img class="profileImg" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"-->
+<!--                         alt="">-->
+<!--                </div>-->
+<!--                <div class="profileInfo">-->
+<!--                    <h1 id="name">Name Surname</h1>-->
+<!--                    <h3>email@example.com</h3>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="links">-->
+<!--                <p><a href="#">Friends</a></p>-->
+<!--                <p><a href="#">Friends</a></p>-->
+<!--                <p><a href="#">Friends</a></p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="right">-->
+
+<!--            <div class="newPost">-->
+<!--                <h1>Create a new Post</h1>-->
+<!--                <form id="postForm">-->
+<!--                    <label for="postTitle">Post Title</label>-->
+<!--                    <input id="postTitle" type="text">-->
+
+<!--                    <label for="postContent">Content</label>-->
+<!--                    <textarea id="postContent"></textarea>-->
+
+<!--                    <input th:type="submit">Create</input>-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--            <div class="postContainer">-->
+
+<!--                <div class="post">-->
+<!--                    <h1 class="postTitle">Akbala</h1>-->
+<!--                    <p class="postContent">-->
+<!--                        Этот кулинарный шедевр, несмотря на свою колоссальную популярность, не имеет однозначного-->
+<!--                        рецепта приготовления, но мы постарались подобрать рецепт, который обязательно порадует вас-->
+<!--                        своим вкусом.-->
+<!--                        Тесто для лагмана предлагаем приобрести готовое, так как процесс приготовления его не столь-->
+<!--                        быстрый, как нам хотелось бы.-->
+
+<!--                        Приблизительная стоимость готового блюда — 32 000 сум.*-->
+
+<!--                        *стоимость актуальна на момент публикации рецепта.-->
+<!--                    </p>-->
+<!--                    <h5 class="postAuthor">-->
+<!--                        Ayau - <span class="postCreatedDate">25.08.2025</span>-->
+<!--                    </h5>-->
+<!--                    <div class="newComment">-->
+<!--                        <textarea></textarea>-->
+<!--                        <button class="submit">Send</button>-->
+<!--                    </div>-->
+
+<!--                    <div class="comments">-->
+<!--                        <h3>Comments:</h3>-->
+<!--                        <div class="comment">-->
+<!--                            <h3 class="commentAuthor">Maks</h3>-->
+<!--                            <p class="commentDate">15.09.2025</p>-->
+<!--                            <p class="message">Если жидкости в казане мало, то необходимо налить 120 миллилитров воды,-->
+<!--                                посолить, поперчить и тушить 10 минут на небольшом огне.-->
+
+<!--                                Готовую подливу разложить на тарелки поверх лагмана.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+
+<!--<footer>-->
+<!--    <div class="container">-->
+<!--        <div class="links">-->
+<!--            <ul>-->
+<!--                <li><a href="#">Link1</a></li>-->
+<!--                <li><a href="#">Link2</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link3</a></li>-->
+<!--                <li><a href="#">Link4</a></li>-->
+<!--                <li><a href="#">Link5</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, quidem.</p>-->
+<!--    </div>-->
+<!--</footer>-->
 
 </body>
 </html>
