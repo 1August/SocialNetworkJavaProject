@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,10 +23,31 @@ public class User {
     private String password;
     @ManyToMany
     private List<Post> posts;
-    @OneToMany
+    @ManyToMany
     private List<User> friends;
     @ManyToMany
     private List<User> requestedFriends;
     @ManyToMany
     private List<User> incomeFriends;
+
+    public User(String first_name, String last_name, String email, String password){
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+        this.posts = new ArrayList<>();
+        this.friends = new ArrayList<>();
+        this.requestedFriends = new ArrayList<>();
+        this.incomeFriends = new ArrayList<>();
+    }
+
+    public void addPostToUser(Post post){
+        posts.add(post);
+    }
+
+    public void addFriend(User friend) {
+        this.friends.add(friend);
+        friend.getFriends().add(this);
+    }
+
 }

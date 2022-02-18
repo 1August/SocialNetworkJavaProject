@@ -1,6 +1,8 @@
 package com.example.socialnetwork.controllers;
 
+import com.example.socialnetwork.entities.Comment;
 import com.example.socialnetwork.entities.Post;
+import com.example.socialnetwork.models.ResponseComment;
 import com.example.socialnetwork.models.ResponsePost;
 import com.example.socialnetwork.services.CommentService;
 import com.example.socialnetwork.services.PostService;
@@ -15,14 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.socialnetwork.entities.User;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 
 @Controller
+@RequestMapping
 public class MessageController {
 
     @Autowired
@@ -30,37 +32,45 @@ public class MessageController {
 
     @Autowired
     PostService postService;
+
     @Autowired
     CommentService commentService;
 
     @MessageMapping("/post")
-    void processPost(@Payload ResponsePost responsePost){
-        System.out.println(responsePost);
-
-      //  userService.getUserByEma(post.getAuthor().getId());
-        //postService.savePost(post);*/
-        userService.getUserByEmail(responsePost.getEmail());
+    String processPost(@Payload ResponsePost responsePost){
         User user =  userService.getUserByEmail(responsePost.getEmail());
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-        LocalDate localDate = LocalDate.now();
-        Date date = Date.from(Instant.from(localDate));
-        Post post = new Post(user, responsePost.getTitle(),responsePost.getContent(), date, null, "1111", true);
-        postService.savePost(post);
+
+
+//        LocalDate localDate = LocalDate.now();
+//        Date date = Date.from(Instant.from(localDate));
+
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+
+        Post post = new Post(user, responsePost.getTitle(),responsePost.getContent(), date);
+        userService.savePostInUser(user.getId(), post);
+
+//        List<Post> posts = postService.getPostsOfUser(user.getId());
+//        model.addAttribute("user", user);
+
+        return "redirect:/user/" + user.getId();
     }
 
-
-
    @MessageMapping("/{postId}/comment")
-    void processComment(@PathVariable Integer postId, ResponsePost responsePost, Model model){
-        model.addAttribute("post","posts" );
-        System.out.println(responsePost);
-        commentService.getCommentByAuthor(responsePost.getEmail());
-        User user =  userService.getUserByEmail(responsePost.getEmail());
-//       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-        LocalDate localDate = LocalDate.now();
-        Date date = Date.from(Instant.from(localDate));
-        Post post = new Post(user, responsePost.getTitle(),responsePost.getContent(), date, null, "1111", true);
-        postService.savePost(post);
+    void processComment(@PathVariable Integer postId, ResponseComment responseComment, Model model){
+        model.addAttribute("post","posts"); // posts need to change for real posts
+
+        User user = userService.getUserByEmail(responseComment.getEmail());
+        Post post = postService.getPostById(postId);
+
+//        LocalDate localDate = LocalDate.now();
+//        Date date = Date.from(Instant.from(localDate));
+
+       long millis = System.currentTimeMillis();
+       Date date = new Date(millis);
+
+        Comment comment = new Comment(user,responseComment.getContent(),date);
+        commentService.saveComment(post.getId(), comment);
     }
 
 
@@ -68,12 +78,6 @@ public class MessageController {
     String websocketGet(){
         return "WebSocketConnection";
     }
-
-
-
-
-
-
 }
 
 

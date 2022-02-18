@@ -1,13 +1,97 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main page</title>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+
+    <!--    <link th:type="module" rel="stylesheet" th:href="@{/css/webSocket.css}">-->
+    <!--    <script th:src="@{/js/jquery.mini.js}" defer></script>-->
+    <!--    <script src="/webjars/sockjs-client/sockjs.min.js"></script>-->
+    <!--    <script src="/webjars/stomp-websocket/stomp.min.js"></script>-->
+    <!--    <script th:type="module" th:src="sockjs-client"></script>-->
+    <!--    <script th:type="module" src="stompjs"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js" defer></script>
+    <script th:type="module" th:src="@{/js/stomp.js}" defer></script>
+
+    <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, nesciunt?</h1>
+
+<nav>
+    <div class="container">
+        <div class="leftNav">
+            <img
+                    src="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png"
+                    alt=""
+                    class="logo"
+            />
+        </div>
+        <div class="rightNav">
+            <ul>
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container1">
+        <div class="friends-wrapper">
+            <div class="friends">
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+            </div>
+            <div class="friends">
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+            </div>
+            <div class="friends">
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+            </div>
+            <div class="friends">
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+            </div>
+            <div class="friends">
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+                <div class="friend"><a href="">Name Surname</a></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="links">
+            <ul>
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link2</a></li>
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Link4</a></li>
+                <li><a href="#">Link5</a></li>
+            </ul>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus,
+            quidem.
+        </p>
+    </div>
+</footer>
+
 </body>
 </html>

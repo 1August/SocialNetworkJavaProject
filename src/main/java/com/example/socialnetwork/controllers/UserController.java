@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/{id}")
 public class UserController {
 
     @Autowired
@@ -22,29 +23,41 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //    Current logged in user
+    User user = null;
+
     @GetMapping
-    String indexGet(Model model){
-        model.addAttribute("nameSurname", "Ivan Ivanov");
-        model.addAttribute("email", "example@mail.com");
+    String userGet(Model model, @PathVariable Integer id) {
+        user = userService.getUserById(id);
+
+        model.addAttribute("user", user);
+
         return "userProfile";
     }
-    @GetMapping("/newPost")
-    public String newPostGet(Model model){
-        Post post=new Post();
-        model.addAttribute("post",post);
-        return "addPost";
-    }
 
-    @PostMapping("/add")
-    public String newPostPost(Post post){
-        postService.savePost(post);
-        return "redirect:/user";
-    }
+//    @GetMapping("/newPost")
+//    public String newPostGet(Model model, @PathVariable Integer id) {
+////        Post post = new Post();
+////        model.addAttribute("post",post);
+//
+//        model.addAttribute("user", user);
+//
+//        return "";
+//    }
 
-    @PostMapping("/addFriend")
-    public String addFriendToUser(User user){
-        userService.addFriendToUser(user);
-        return "redirect:/user";
-    }
+//    !!! Need to add in MessageController !!! - method /post
+//    @PostMapping("/addPost")
+//    public String newPostPost(Post post){
+////        userService.savePostInUser
+//        postService.savePost(post);
+//        return "redirect:/user";
+//    }
 
+    @PostMapping("/addFriend/{friendId}")
+    public String addFriendToUser(@PathVariable Integer id, @PathVariable Integer friendId, Model model) throws Exception {
+        userService.addFriend(id, friendId);
+        model.addAttribute("user", user);
+
+        return "redirect:/user/" + id;
+    }
 }

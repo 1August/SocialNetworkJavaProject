@@ -22,4 +22,10 @@ public class Comment {
     private User author;
     private String content;
     private Date createdDate;
+
+    public Comment(User author, String content, Date createdDate){
+        this.author = author;
+        this.content = content;
+        this.createdDate = createdDate;
+    }
 }

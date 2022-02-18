@@ -1,46 +1,46 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="@{/static/css/style.css}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link rel="stylesheet" href="@{/static/css/style.css}">-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
 
-</head>
-<body>
-<h1>Adding a new post</h1>
-<div class="container">
-    <form action="#"  th:action="@{/add}" th:object="${post}" method="post">
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Adding a new post</h1>-->
+<!--<div class="container">-->
+<!--    <form action="#"  th:action="@{/add}" th:object="${post}" method="post">-->
 
-        <div class="form-group">
-            <label>Post ID:</label>
-            <input type="text" class="form-control" th:field="*{id}" readonly="readonly" />
-        </div>
-        <div class="form-group">
-            <label>Post Author:</label>
-            <input type="text"   class="form-control" th:field="*{author}" />
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>Post ID:</label>-->
+<!--            <input type="text" class="form-control" th:field="*{id}" readonly="readonly" />-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label>Post Author:</label>-->
+<!--            <input type="text"   class="form-control" th:field="*{author}" />-->
+<!--        </div>-->
 
-        <div class="form-group">
-            <label>Post Title:</label>
-            <input type="text"   class="form-control" th:field="*{title}" />
-        </div>
-        <div class="form-group">
-            <label>Post content:</label>
-            <input type="text"   class="form-control" th:field="*{content}" />
-        </div>
-        <div class="form-group">
-            <label>Created Date:</label>
-            <input type="date"   class="form-control" th:field="*{createdDate}" />
-        </div>
-        <div class="form-group" th:if="*{visibleFor}">
-            <label>Visible for</label>
-            <input type="date"   class="form-control" th:field="*{visibleFor}" />
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>Post Title:</label>-->
+<!--            <input type="text"   class="form-control" th:field="*{title}" />-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label>Post content:</label>-->
+<!--            <input type="text"   class="form-control" th:field="*{content}" />-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label>Created Date:</label>-->
+<!--            <input type="date"   class="form-control" th:field="*{createdDate}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" th:if="*{visibleFor}">-->
+<!--            <label>Visible for</label>-->
+<!--            <input type="date"   class="form-control" th:field="*{visibleFor}" />-->
+<!--        </div>-->
 
-        <td> <button  type="submit" class="btn btn-primary">Save</button> </td>
-    </form>
-</div>
+<!--        <td> <button  type="submit" class="btn btn-primary">Save</button> </td>-->
+<!--    </form>-->
+<!--</div>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

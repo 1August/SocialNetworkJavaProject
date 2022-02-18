@@ -18,21 +18,28 @@ public class PostService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     public Post savePost(Post post) {
         postRepository.save(post);
         return post;
     }
 
-    public Post getPostById(Integer id){
-        return  postRepository.getPostById(id);
+    public Post getPostById(Integer id) {
+        return postRepository.getPostById(id);
+    }
+    public List<Post> getPostsOfUser(Integer userId){
+        User user = userService.getUserById(userId);
+        return user.getPosts();
     }
 
-    public Post getPostByTitle(String title){
-        return  postRepository.getPostByTitle(title);
+    public Post getPostByTitle(String title) {
+        return postRepository.getPostByTitle(title);
     }
 
-    public Post getPostByAuthor(String email){
-        return  postRepository.getPostByAuthor(email);
+    public Post getPostByAuthor(String email) {
+        return postRepository.getPostByAuthor(email);
     }
 
 
@@ -44,8 +51,6 @@ public class PostService {
     /*public Post getPostByEmail(String email){
         return  postRepository.getPostByEmail(email);
     }*/
-
-
 
 
 //

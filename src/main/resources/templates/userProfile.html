@@ -58,21 +58,6 @@
 <!--</div>-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <nav>
     <div class="container">
         <div class="leftNav">
@@ -98,20 +83,25 @@
                     <img class="profileImg" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"
                          alt="">
                 </div>
-                <div class="profileInfo">
-                    <h1 id="nameSurname" th:text="${nameSurname}"></h1>
-                    <h3 id="email" th:text="${email}"></h3>
+                <div class="profileInfo" th:if="${friendInfo}">
+                    <h1 id="nameSurname" th:text='${friendInfo.first_name + " " + friendInfo.last_name}'></h1>
+                    <h3 id="email" th:text="${friendInfo.email}"></h3>
+                </div>
+                <div class="profileInfo"  th:unless="${friendInfo}">
+                    <h1 id="nameSurname" th:text='${user.first_name + " " + user.last_name}'></h1>
+                    <h3 id="email" th:text="${user.email}"></h3>
                 </div>
             </div>
-            <div class="links">
-                <p><a href="#">Friends</a></p>
-                <p><a href="#">Friends</a></p>
-                <p><a href="#">Friends</a></p>
+            <div class="friendsList">
+                <p th:each="friend: ${user.friends}">
+                    <a th:href="@{'/user/' + *{user.id} + '/friend/' + *{friend.id}}"
+                       th:text="${friend.first_name} + ' ' + ${friend.last_name}"></a>
+                </p>
             </div>
         </div>
         <div class="right">
 
-            <div class="newPost">
+            <div class="newPost" th:unless="${friendInfo}">
                 <h1>Create a new Post</h1>
                 <form id="postForm">
                     <label for="postTitle">Post Title</label>
@@ -125,23 +115,11 @@
             </div>
 
             <div class="postContainer">
-
-                <div class="post">
-                    <h1 class="postTitle">Akbala</h1>
-                    <p class="postContent">
-                        Этот кулинарный шедевр, несмотря на свою колоссальную популярность, не имеет однозначного
-                        рецепта приготовления, но мы постарались подобрать рецепт, который обязательно порадует вас
-                        своим вкусом.
-                        Тесто для лагмана предлагаем приобрести готовое, так как процесс приготовления его не столь
-                        быстрый, как нам хотелось бы.
-
-                        Приблизительная стоимость готового блюда — 32 000 сум.*
-
-                        *стоимость актуальна на момент публикации рецепта.
-                    </p>
-                    <h5 class="postAuthor">
-                        Ayau - <span class="postCreatedDate">25.08.2025</span>
-                    </h5>
+                <div class="post" th:each="post: ${user.posts}">
+                    <h1 class="postTitle" th:text="${post.title}"></h1>
+                    <p class="postContent" th:text="${post.content}"></p>
+                    <h5 class="postAuthor" th:text="${post.author}"></h5>
+                    <span class="postCreatedDate" th:text="${post.createdDate}"></span>
                     <div class="newComment">
                         <textarea></textarea>
                         <button class="submit">Send</button>
@@ -149,13 +127,10 @@
 
                     <div class="comments">
                         <h3>Comments:</h3>
-                        <div class="comment">
-                            <h3 class="commentAuthor">Maks</h3>
-                            <p class="commentDate">15.09.2025</p>
-                            <p class="message">Если жидкости в казане мало, то необходимо налить 120 миллилитров воды,
-                                посолить, поперчить и тушить 10 минут на небольшом огне.
-
-                                Готовую подливу разложить на тарелки поверх лагмана.</p>
+                        <div class="comment" th:each="comment: ${post.comments}">
+                            <h3 class="commentAuthor" th:text="${comment.author}"></h3>
+                            <p class="commentDate" th:text="${comment.createdDate}"></p>
+                            <p class="message" th:text="${comment.content}"></p>
                         </div>
                     </div>
                 </div>

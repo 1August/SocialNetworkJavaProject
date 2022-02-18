@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker( "/user");
+        config.enableSimpleBroker("/user");
 //        config.setApplicationDestinationPrefixes("/app");
         config.setUserDestinationPrefix("/user");
     }
@@ -40,8 +40,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         return false;
     }
 }
-
-
 
 
 //package com.example.socialnetwork.WebSocket;

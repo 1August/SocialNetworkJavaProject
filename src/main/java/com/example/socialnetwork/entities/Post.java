@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class Post {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User author;
+    private User authorId;
     private String title;
     private String content;
     private Date createdDate;
@@ -28,16 +31,19 @@ public class Post {
     private String visibleFor;
     private boolean commentsAvailable;
 
-    public Post( User author, String title, String content, Date createdDate, List<Comment> comments,
-                 String  visibleFor, boolean commentsAvailable
-    ){
+    public Post(User author, String title, String content, Date createdDate){
         this.author = author;
         this.title= title;
         this.content = content;
         this.createdDate = createdDate;
-        this.comments = comments;
-        this.visibleFor = visibleFor;
-        this.commentsAvailable = commentsAvailable;
+        this.comments = new ArrayList<>();
+        this.visibleFor = "111";
+        this.commentsAvailable = true;
 
+    }
+
+    public Post addCommentToPost(Comment comment){
+        comments.add(comment);
+        return this;
     }
 }

@@ -17,8 +17,13 @@ public class CommentService {
     @Autowired
     PostRepository postRepository;
 
-    public Comment saveComment(Comment comment) {
-        commentRepository.save(comment);
+    public Comment saveComment(Integer postId, Comment comment) {
+//        Comment commentSaved = commentRepository.save(comment);
+
+        Post post = postRepository.getPostById(postId);
+        post.addCommentToPost(comment);
+        postRepository.save(post);
+        
         return comment;
     }
 
