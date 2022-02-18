@@ -28,9 +28,4 @@ public class User {
     private List<User> requestedFriends;
     @ManyToMany
     private List<User> incomeFriends;
-
-    public void addFriend(User friend) {
-        this.friends.add(friend);
-        friend.getFriends().add(this);
-    }
 }
