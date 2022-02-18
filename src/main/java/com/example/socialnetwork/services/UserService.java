@@ -11,30 +11,22 @@ public class UserService implements IUserService{
     @Autowired
     UserRepository userRepository;
 
-//    public List<User> findAllUsers() {
-//        return userRepository.findAll();
-//
-
-
     public User saveUser(User newUser) {
         User user = userRepository.save(newUser);
         return user;
     }
 
+    public void addFriend(Integer user1_id, Integer user2_id) throws Exception{
 
+        if(user1_id != null && user1_id.equals(user2_id)) {
+            throw new Exception("We can not add same users");
+        }
+        User user = userRepository.getUserById(user1_id);
+        User friend = userRepository.getUserById(user2_id);
 
-
-    public boolean addFriendToUser(Integer userId, Integer friendId) {
-        User user = userRepository.getUserById(userId);
-        User friend = userRepository.getUserById(friendId);
-        return userRepository.addFriendToUser(user, friend);
-//
-////        Optional<User> userOptional = userRepo.findById((int) userId.longValue());
-////        User user = userOptional.orElse(null);
-////        if (user == null) {
-////            return false;
-////        }
-//    }
+        user.addFriend(friend);
+        userRepository.save(friend);
+    }
 
     public User getUserById(Integer userId){
         return userRepository.getUserById(userId);
