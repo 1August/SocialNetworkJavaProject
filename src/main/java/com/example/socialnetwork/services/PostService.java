@@ -16,8 +16,7 @@ public class PostService {
     PostRepository postRepository;
 
     public Post savePost(Post post) {
-        postRepository.save(post);
-        return post;
+        return postRepository.save(post);
     }
 
     public Post getPostById(Integer id) {

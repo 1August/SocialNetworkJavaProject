@@ -19,19 +19,16 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User authorId;
+    private Integer authorId;
     private String title;
     private String content;
     private Date createdDate;
-    @OneToMany
-    @JoinColumn(name = "comment_id")
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Comment> comments;
     private String visibleFor;
     private boolean commentsAvailable;
 
-    public Post(User authorId, String title, String content, Date createdDate){
+    public Post(Integer authorId, String title, String content, Date createdDate){
         this.authorId = authorId;
         this.title = title;
         this.content = content;
@@ -52,7 +49,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", authorId=" + authorId.getId() +
+                ", authorId=" + authorId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createdDate=" + createdDate +

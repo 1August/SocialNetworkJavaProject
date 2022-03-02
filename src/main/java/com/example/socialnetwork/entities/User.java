@@ -21,13 +21,14 @@ public class User {
     private String last_name;
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
     private List<Post> posts;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> friends;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> requestedFriends;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> incomeFriends;
 
     public User(String first_name, String last_name, String email, String password){
@@ -48,13 +49,15 @@ public class User {
 
     @Override
     public String toString() {
+        List<Post> postsArr = new ArrayList<>(posts);
+
         return "User{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", posts=" + posts +
+                ", posts=" + postsArr +
                 ", friends=" + friends +
                 ", requestedFriends=" + requestedFriends +
                 ", incomeFriends=" + incomeFriends +

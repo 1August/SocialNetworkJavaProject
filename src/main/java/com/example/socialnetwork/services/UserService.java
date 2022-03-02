@@ -49,10 +49,15 @@ public class UserService {
     }
 
     public Post savePostInUser(Post post) {
-        User user = userRepository.getUserById(post.getAuthorId().getId());
+        User user = userRepository.getUserById(post.getAuthorId());
+        user.getPosts().add(postRepository.save(post));
+        List<Post> userPosts = user.getPosts();
+        userRepository.getUserById(user.getId()).setPosts(userPosts);
 
-        postRepository.save(post);
-        return post;
+
+//        System.out.println(userRepository.getUserById(user.getId()));
+
+        return postRepository.getPostByAuthorIdAndTitle(user.getId(), post.getTitle());
     }
 
     public User getUserByEmailAndPassword(String email, String password){

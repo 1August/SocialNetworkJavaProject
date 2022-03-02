@@ -27,8 +27,8 @@ public class CommentService {
         return comment;
     }
 
-    public Comment getCommentByAuthor(String author){
-        return  commentRepository.findCommentByAuthor(author);
+    public Comment getCommentByAuthorId(String author){
+        return  commentRepository.findCommentByAuthorId(author);
     }
 
     public Comment getCommentById(Integer id){

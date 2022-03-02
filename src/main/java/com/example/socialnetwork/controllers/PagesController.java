@@ -46,6 +46,11 @@ public class PagesController {
         return "index";
     }
 
+    @GetMapping("/users")
+    String userGet(@PathVariable Integer userId, Model model){
+        return "friends";
+    }
+
     @GetMapping("/user/{id}/friend/{friendId}")
     String visitFriendGet(@PathVariable Integer id, @PathVariable Integer friendId, Model model){
         model.addAttribute("user", userService.getUserById(id));

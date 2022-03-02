@@ -10,4 +10,5 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
     Post getPostById(Integer id);
     Post getPostByAuthorId(Integer userId);
     List<Post> getAllByAuthorId(Integer userId);
+    Post getPostByAuthorIdAndTitle(Integer authorId, String title);
 }

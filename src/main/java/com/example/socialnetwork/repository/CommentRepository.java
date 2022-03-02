@@ -5,5 +5,5 @@ import com.example.socialnetwork.entities.Comment;
 
 public interface CommentRepository  extends JpaRepository <Comment, Integer>  {
     Comment findCommentById(Integer id);
-    Comment findCommentByAuthor(String author);
+    Comment findCommentByAuthorId(String authorId);
 }

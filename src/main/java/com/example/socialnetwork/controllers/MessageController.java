@@ -39,7 +39,7 @@ public class MessageController {
     CommentService commentService;
 
     @MessageMapping("/post")
-//    @SendTo("/user/1")
+    @SendTo("/user/1")
     void processPost(@Payload ResponsePost responsePost){
         User user = userService.getUserByEmail(responsePost.getEmail());
 
@@ -50,9 +50,15 @@ public class MessageController {
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
-        Post post = new Post(user, responsePost.getTitle(), responsePost.getContent(), date);
+        Post post = new Post(user.getId(), responsePost.getTitle(), responsePost.getContent(), date);
+
+        System.out.println(post);
 
         userService.savePostInUser(post);
+
+//        user = userService.getUserByEmail(responsePost.getEmail());
+//        System.out.println(user);
+
 
 //        List<Post> posts = postService.getPostsOfUser(user.getId());
 //        model.addAttribute("user", user);
@@ -72,7 +78,7 @@ public class MessageController {
        long millis = System.currentTimeMillis();
        Date date = new Date(millis);
 
-        Comment comment = new Comment(user,responseComment.getContent(),date);
+        Comment comment = new Comment(user.getId(),responseComment.getContent(),date);
         commentService.saveComment(post.getId(), comment);
     }
 
