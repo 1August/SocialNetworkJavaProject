@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
 @Controller
@@ -32,34 +36,9 @@ public class UserController {
 
     @GetMapping
     String userGet(Model model, @PathVariable Integer id) {
-//        System.out.println("-----------");
         user = userService.getUserById(id);
 
         model.addAttribute("user", user);
-        System.out.println("userGet is load and returned to template" + '\n' + user);
-
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-        System.err.println("Пост не сохраняется у юзера почему то, нужно проверить");
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-//        -------------------------------------------------------------
-
-
-
-
-//        System.out.println(user);
-
-//        System.out.println(user.getPosts().get(0).getTitle());
 
         return "userProfile";
     }
@@ -82,11 +61,19 @@ public class UserController {
 //        return "redirect:/user";
 //    }
 
-    @PostMapping("/addFriend/{friendId}")
-    public String addFriendToUser(@PathVariable Integer id, @PathVariable Integer friendId, Model model) throws Exception {
-        userService.addFriend(id, friendId);
+    @GetMapping("/friends")
+    String userFriendsGet(Model model){
+        user = userService.getUserById(user.getId());
         model.addAttribute("user", user);
-
-        return "redirect:/user/" + id;
+        return "friends";
     }
+
+
+//    @PostMapping("/addFriend/{friendId}")
+//    public String addFriendToUser(@PathVariable Integer id, @PathVariable Integer friendId, Model model) throws Exception {
+//        userService.addFriend(id, friendId);
+//        model.addAttribute("user", user);
+//
+//        return "redirect:/user/" + id;
+//    }
 }

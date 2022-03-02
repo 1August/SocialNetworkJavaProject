@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/static.css}">
-    <link rel="stylesheet" th:href="@{/css/index.css}">
 
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js" defer></script>
     <script th:type="module" th:src="@{/js/stomp.js}" defer></script>
@@ -20,8 +19,9 @@
         </div>
         <div class="rightNav">
             <ul>
-                <li><a th:href="@{'/'}">Home</a></li>
-                <li th:if="${user}"><a th:href="@{'/user/' + *{user.id}}" th:text="${user.first_name}"></a></li>
+                <li><a th:href="@{'/'}" th:if="${user}">Home</a></li>
+                <li><a th:href="@{'/'}" th:unless="${user}">Home</a></li>
+                <li><a href="#">Link3</a></li>
                 <li><a th:href="@{/register}">Register</a></li>
                 <li><a th:href="@{/login}">Login</a></li>
                 <li><a th:href="@{/logout}">Logout</a></li>
@@ -32,18 +32,7 @@
 
 <main>
     <div class="container">
-        <div class="friends-wrapper">
-            <div class="friends">
-                <div class="friend" th:each="itUser: ${allUsers}">
-                    <a th:if="${user} and ${itUser.id == user.id}"
-                       th:href="@{'/user/' + *{itUser.id}}"
-                       th:text='${itUser.first_name + " " + itUser.last_name + " - " + itUser.email}'></a>
-                    <a th:unless="${user} and ${itUser.id == user.id}"
-                       th:href="@{'/guest/user/' + *{itUser.id}}"
-                       th:text='${itUser.first_name + " " + itUser.last_name + " - " + itUser.email}'></a>
-                </div>
-            </div>
-        </div>
+        <h1 style="color: red" th:text="${errorMsg}">Error message would be here</h1>
     </div>
 </main>
 
@@ -60,10 +49,7 @@
                 <li><a href="#">Link5</a></li>
             </ul>
         </div>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus,
-            quidem.
-        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, quidem.</p>
     </div>
 </footer>
 

@@ -3,6 +3,25 @@ const form = document.querySelector("#postForm")
 // const disconnectBtn = document.querySelector("#disconnect")
 const addPostBtn = document.querySelector("#addPostBtn")
 
+const newCommentForms = document.querySelectorAll('.post')
+
+
+
+
+if (newCommentForms){
+    newCommentForms.forEach(form => form.addEventListener('submit', e => {
+        e.preventDefault()
+
+        // const userId = document.querySelector('#userId').value
+        let email = document.querySelector('#email').innerHTML
+        let postId = form.querySelector('.postId').value
+        let comment = form.querySelector('.newComment textarea').value
+        const newComment = { postId, email, content: comment }
+
+        stompClient.send('/post/comment', {}, JSON.stringify(newComment));
+    }))
+}
+
 let stompClient = null;
 
 const connect = () => {
@@ -13,9 +32,10 @@ const connect = () => {
 connect()
 
 const sendPost = post => {
-    const newPost = { ...post }
+    // let userId = document.querySelector('#userId').value
+    const newPost = {...post }
 
-    stompClient.send("/post", {}, JSON.stringify(newPost));
+    stompClient.send('/post', {}, JSON.stringify(newPost))
 }
 
 form.addEventListener("submit", e=>{ e.preventDefault() })

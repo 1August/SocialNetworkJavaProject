@@ -21,154 +21,154 @@
 }
 
 
-body{
-    margin: 0;
-    padding: 0;
-}
+/*body{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
-.container{
-    width: 90%;
-    margin: 0 auto;
-}
+/*.container{*/
+/*    width: 90%;*/
+/*    margin: 0 auto;*/
+/*}*/
 
-nav{
-    background-color: #acacac;
-}
+/*nav{*/
+/*    background-color: #acacac;*/
+/*}*/
 
-nav .container{
-    padding: 10px 0;
+/*nav .container{*/
+/*    padding: 10px 0;*/
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*}*/
 
-.leftNav{
-    width: 20%;
-}
+/*.leftNav{*/
+/*    width: 20%;*/
+/*}*/
 
-.logo{
-    width: 100px;
-}
+/*.logo{*/
+/*    width: 100px;*/
+/*}*/
 
-.rightNav{
-    width: 60%;
-    display: flex;
-    justify-content:right;
-}
+/*.rightNav{*/
+/*    width: 60%;*/
+/*    display: flex;*/
+/*    justify-content:right;*/
+/*}*/
 
-ul{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/*ul{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
 
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+/*    list-style: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
-nav a{
-    color: #000;
-    text-decoration: none;
-}
-
-
-
-main .container{
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-
-    padding: 10px 0;
-}
-
-main .left{
-    padding: 1rem;
-    width: calc(40% - .5rem);
-}
-
-main .left, main .right{
-    border: 1px solid rgba(0, 0, 0, .1);
-    border-radius: 10px;
-}
-
-.profileImg{
-    width: 100%;
-}
-
-main .right{
-    width: calc(60% - 1rem);
-}
-
-
-.newPost{
-    padding: 0 0 1.5rem;
-}
-
-.newPost :is(input, textarea){
-    width: 100%;
-}
-
-.newPost input{
-    margin: 0 0 1rem;
-}
+/*nav a{*/
+/*    color: #000;*/
+/*    text-decoration: none;*/
+/*}*/
 
 
 
-.post{
-    border-radius: 0.5rem;
-    background-color: #acacac;
-}
+/*main .container{*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    gap: 1rem;*/
 
-.post + .post{
-    margin: .5rem 0 0;
-}
+/*    padding: 10px 0;*/
+/*}*/
 
-.newComment textarea{
-    width: 100%;
-    resize: vertical;
-    max-height: 200px;
+/*main .left{*/
+/*    padding: 1rem;*/
+/*    width: calc(40% - .5rem);*/
+/*}*/
 
-}
-.newComment button{
+/*main .left, main .right{*/
+/*    border: 1px solid rgba(0, 0, 0, .1);*/
+/*    border-radius: 10px;*/
+/*}*/
 
-}
+/*.profileImg{*/
+/*    width: 100%;*/
+/*}*/
 
-.comments{
-    width: 80%;
-    margin: 0 auto;
-}
-.comment + .comment{
-    border-top: 1px solid rgba(0, 0, 0, .4);
-    margin: .5rem 0 0;
-}
+/*main .right{*/
+/*    width: calc(60% - 1rem);*/
+/*}*/
 
 
+/*.newPost{*/
+/*    padding: 0 0 1.5rem;*/
+/*}*/
 
-footer{
-    background-color: #333;
-    color: #fff;
+/*.newPost :is(input, textarea){*/
+/*    width: 100%;*/
+/*}*/
 
-    padding: 1rem 0;
-}
+/*.newPost input{*/
+/*    margin: 0 0 1rem;*/
+/*}*/
 
-footer ul{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: .5rem;
 
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
 
-footer p{
-    padding: 0;
-}
+/*.post{*/
+/*    border-radius: 0.5rem;*/
+/*    background-color: #acacac;*/
+/*}*/
 
-footer a{
-    color: #fff;
-}
+/*.post + .post{*/
+/*    margin: .5rem 0 0;*/
+/*}*/
+
+/*.newComment textarea{*/
+/*    width: 100%;*/
+/*    resize: vertical;*/
+/*    max-height: 200px;*/
+
+/*}*/
+/*.newComment button{*/
+
+/*}*/
+
+/*.comments{*/
+/*    width: 80%;*/
+/*    margin: 0 auto;*/
+/*}*/
+/*.comment + .comment{*/
+/*    border-top: 1px solid rgba(0, 0, 0, .4);*/
+/*    margin: .5rem 0 0;*/
+/*}*/
+
+
+
+/*footer{*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+
+/*    padding: 1rem 0;*/
+/*}*/
+
+/*footer ul{*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(4, 1fr);*/
+/*    grid-gap: .5rem;*/
+
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+
+/*footer p{*/
+/*    padding: 0;*/
+/*}*/
+
+/*footer a{*/
+/*    color: #fff;*/
+/*}*/
 
 .is-hidden{
     display: none;

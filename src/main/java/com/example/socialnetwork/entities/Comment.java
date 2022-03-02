@@ -16,12 +16,16 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer authorId;
+    @ManyToOne
+    private User author;
+    @ManyToOne
+    private Post post;
     private String content;
     private Date createdDate;
 
-    public Comment(Integer author, String content, Date createdDate){
-        this.authorId = author;
+    public Comment(User author, Post post, String content, Date createdDate){
+        this.author = author;
+        this.post = post;
         this.content = content;
         this.createdDate = createdDate;
     }
@@ -30,7 +34,7 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", authorId=" + authorId +
+                ", authorId=" + author +
                 ", content='" + content + '\'' +
                 ", createdDate=" + createdDate +
                 '}';

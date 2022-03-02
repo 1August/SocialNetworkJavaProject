@@ -2,9 +2,12 @@ package com.example.socialnetwork.controllers;
 
 import com.example.socialnetwork.entities.Comment;
 import com.example.socialnetwork.entities.Post;
+import com.example.socialnetwork.models.ResponseAddToFriendsRequest;
 import com.example.socialnetwork.models.ResponseComment;
 import com.example.socialnetwork.models.ResponsePost;
+import com.example.socialnetwork.models.ResponseRequestedUserEmail;
 import com.example.socialnetwork.services.CommentService;
+import com.example.socialnetwork.services.FriendshipService;
 import com.example.socialnetwork.services.PostService;
 import com.example.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-
 public class MessageController {
+    @Autowired
+    UserController userController;
+//
+//    User user = userController.user;
 
     @Autowired
     UserService userService;
@@ -38,9 +44,33 @@ public class MessageController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    FriendshipService friendshipService;
+
+
+    // TODO: 03/03/2022
+    /**
+     *
+     * Работает:
+     * - Посты добавляются
+     * - Комменты добавляются
+     * - Логин под юзера работает
+     * - Можно смотреть другие стр юзеров
+     * - Можно отправить запрос на дружбу
+     * - Можно посмотреть список пришедших запросов
+     *
+     * Доделать:
+     * - Айди/логин юзера при добавлении коммента
+     * - Запрос на удаление из друзей
+     * - Принятие/отклонение запроса дружбы
+     *
+     */
+
+
+//    @RequestMapping
     @MessageMapping("/post")
-    @SendTo("/user/1")
-    void processPost(@Payload ResponsePost responsePost){
+//    @SendTo("/user/1")
+    void processPost(@Payload ResponsePost responsePost) {
         User user = userService.getUserByEmail(responsePost.getEmail());
 
 
@@ -50,11 +80,15 @@ public class MessageController {
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
-        Post post = new Post(user.getId(), responsePost.getTitle(), responsePost.getContent(), date);
+        Post post = new Post(user, responsePost.getTitle(), responsePost.getContent(), date);
 
-        System.out.println(post);
+//        System.out.println(post);
 
-        userService.savePostInUser(post);
+        try {
+            userService.savePostInUser(post);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 //        user = userService.getUserByEmail(responsePost.getEmail());
 //        System.out.println(user);
@@ -65,28 +99,41 @@ public class MessageController {
 
     }
 
-   @MessageMapping("/{postId}/comment")
-    void processComment(@PathVariable Integer postId, ResponseComment responseComment, Model model){
-        model.addAttribute("post","posts"); // posts need to change for real posts
+    @MessageMapping("/post/comment")
+    void processComment(@Payload ResponseComment responseComment) {
+//        model.addAttribute("post", "posts"); // posts need to change for real posts
 
         User user = userService.getUserByEmail(responseComment.getEmail());
-        Post post = postService.getPostById(postId);
+        Post post = postService.getPostById(responseComment.getPostId());
 
 //        LocalDate localDate = LocalDate.now();
 //        Date date = Date.from(Instant.from(localDate));
 
-       long millis = System.currentTimeMillis();
-       Date date = new Date(millis);
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
 
-        Comment comment = new Comment(user.getId(),responseComment.getContent(),date);
-        commentService.saveComment(post.getId(), comment);
+        Comment comment = new Comment(user, post, responseComment.getContent(), date);
+
+//        System.out.println(comment);
+        try {
+            postService.saveCommentInPost(comment);
+        } catch (Exception e){
+            System.out.println("Exception in message controller " + e);
+        }
+    }
+
+    @MessageMapping("/addFriendRequest")
+    void addFriendRequest(@Payload ResponseRequestedUserEmail requestedUserEmail){
+        friendshipService.requestToAdd(userController.user.getId(), requestedUserEmail.getRequestedUserEmail());
     }
 
 
     @GetMapping("/ws")
-    String websocketGet(){
+    String websocketGet() {
         return "WebSocketConnection";
     }
+
+
 }
 
 

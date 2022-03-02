@@ -1,19 +1,25 @@
 package com.example.socialnetwork.services;
 
+import com.example.socialnetwork.entities.Comment;
 import com.example.socialnetwork.entities.Post;
 import com.example.socialnetwork.entities.User;
 import com.example.socialnetwork.models.ResponsePost;
+import com.example.socialnetwork.repository.CommentRepository;
 import com.example.socialnetwork.repository.PostRepository;
 import com.example.socialnetwork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PostService {
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     public Post savePost(Post post) {
         return postRepository.save(post);
@@ -34,6 +40,14 @@ public class PostService {
         return postRepository.getPostByAuthorId(userId);
     }
 
+
+    public Comment saveCommentInPost(Comment comment) throws Exception {
+        Post post = postRepository.getPostById(comment.getPost().getId());
+
+        post.getComments().add(commentRepository.save(comment));
+        postRepository.save(post);
+        return commentRepository.getCommentByPostIdAndAndContent(post.getId(), comment.getContent());
+    }
 
 
    /* public boolean addCommentToThePost(Integer commentId, Integer postID){

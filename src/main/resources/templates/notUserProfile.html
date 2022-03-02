@@ -10,6 +10,7 @@
     <script th:type="module" th:src="@{/js/stomp.js}" defer></script>
 
     <script th:src="@{/js/app.js}" defer></script>
+    <script th:src="@{/js/notUserProfile.js}" defer></script>
 </head>
 <body>
 
@@ -39,61 +40,45 @@
                     <img class="profileImg" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png"
                          alt="">
                 </div>
-<!--                <div class="profileInfo" th:if="${friendInfo}">-->
-<!--                    <h1 id="nameSurname" th:text='${friendInfo.first_name + " " + friendInfo.last_name}'></h1>-->
-<!--                    <h3 id="email" th:text="${friendInfo.email}"></h3>-->
-<!--                </div>-->
+                <!--                <div class="profileInfo" th:if="${friendInfo}">-->
+                <!--                    <h1 id="nameSurname" th:text='${friendInfo.first_name + " " + friendInfo.last_name}'></h1>-->
+                <!--                    <h3 id="email" th:text="${friendInfo.email}"></h3>-->
+                <!--                </div>-->
                 <div class="profileInfo">
-                    <input type="hidden" id="userId" th:value="${user.id}">
-                    <h1 id="nameSurname" th:text="${user.first_name + ' ' + user.last_name}"></h1>
-                    <h3 id="email" th:text="${user.email}"></h3>
-                </div>
-                <hr>
-                <div class="links">
-                    <ul>
-                        <li><a th:href="@{'/user/' + *{user.id} + '/friends'}">Friends</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                    </ul>
+                    <h1 id="nameSurname" th:text="${guest.first_name + ' ' + guest.last_name}"></h1>
+                    <h3 id="email" th:text="${guest.email}"></h3>
                 </div>
             </div>
-<!--            <div class="friendsList">-->
-<!--                <p th:each="friend: ${user.friends}">-->
-<!--                    <a th:href="@{'/user/' + *{user.id} + '/friend/' + *{friend.id}}"-->
-<!--                       th:text="${friend.first_name} + ' ' + ${friend.last_name}"></a>-->
-<!--                </p>-->
-<!--            </div>-->
+            <div class="friendship">
+                <button id="deleteFromFriends" th:if="${guest.friends.contains(user)}">Delete from
+                    friends</button>
+                <button id="addRequest" th:unless="${guest.friends.contains(user)}">Send request</button>
+            </div>
+
+            <!--            <div class="friendsList">-->
+            <!--                <p th:each="friend: ${user.friends}">-->
+            <!--                    <a th:href="@{'/user/' + *{user.id} + '/friend/' + *{friend.id}}"-->
+            <!--                       th:text="${friend.first_name} + ' ' + ${friend.last_name}"></a>-->
+            <!--                </p>-->
+            <!--            </div>-->
         </div>
         <div class="right">
 
-<!--            <div class="newPost" th:unless="${friendInfo}">-->
-<!--                <h1>Create a new Post</h1>-->
-<!--                <form id="postForm">-->
-<!--                    <label for="postTitle">Post Title</label>-->
-<!--                    <input id="postTitle" type="text">-->
+            <!--            <div class="newPost" th:unless="${friendInfo}">-->
+            <!--                <h1>Create a new Post</h1>-->
+            <!--                <form id="postForm">-->
+            <!--                    <label for="postTitle">Post Title</label>-->
+            <!--                    <input id="postTitle" type="text">-->
 
-<!--                    <label for="postContent">Content</label>-->
-<!--                    <textarea id="postContent"></textarea>-->
+            <!--                    <label for="postContent">Content</label>-->
+            <!--                    <textarea id="postContent"></textarea>-->
 
-<!--                    <input id="addPostBtn" th:type="submit">Create</input>-->
-<!--                </form>-->
-<!--            </div>-->
-
-            <div class="newPost">
-                <h1>Create a new Post</h1>
-                <form id="postForm">
-                    <label for="postTitle">Post Title</label>
-                    <input id="postTitle" type="text">
-
-                    <label for="postContent">Content</label>
-                    <textarea id="postContent"></textarea>
-
-                    <input id="addPostBtn" th:type="submit">Create</input>
-                </form>
-            </div>
+            <!--                    <input id="addPostBtn" th:type="submit">Create</input>-->
+            <!--                </form>-->
+            <!--            </div>-->
 
             <div class="postContainer">
-                <form class="post" th:each="post: ${user.posts}">
+                <form class="post" th:each="post: ${guest.posts}">
                     <input class="postId" type="hidden" th:value="${post.id}">
                     <h1 class="postTitle" th:text="${post.title}"></h1>
                     <p class="postContent" th:text="${post.content}"></p>

@@ -19,7 +19,8 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer authorId;
+    @ManyToOne
+    private User author;
     private String title;
     private String content;
     private Date createdDate;
@@ -28,8 +29,8 @@ public class Post {
     private String visibleFor;
     private boolean commentsAvailable;
 
-    public Post(Integer authorId, String title, String content, Date createdDate){
-        this.authorId = authorId;
+    public Post(User author, String title, String content, Date createdDate){
+        this.author = author;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
@@ -49,7 +50,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", authorId=" + authorId +
+                ", authorId=" + author +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createdDate=" + createdDate +

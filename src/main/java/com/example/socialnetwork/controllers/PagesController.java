@@ -2,7 +2,6 @@ package com.example.socialnetwork.controllers;
 
 import com.example.socialnetwork.entities.User;
 import com.example.socialnetwork.services.LoginService;
-import com.example.socialnetwork.services.PostService;
 import com.example.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +18,16 @@ import java.util.List;
 @RequestMapping
 public class PagesController {
     @Autowired
+    UserController userController;
+
+    @Autowired
     UserService userService;
 
     @Autowired
     LoginService loginService;
 
     @GetMapping("/")
-    String indexGet(Model model) throws Exception {
+    String indexGet(Model model){
 
 
 //        userService.saveUser(new User("Maks", "K", "e@example.com", "123"));
@@ -42,8 +44,20 @@ public class PagesController {
 
         List<User> allUsers = userService.getAllUsers();
         model.addAttribute("allUsers", allUsers);
+        if (userController.user != null) model.addAttribute("user", userController.user);
+
+//        User user = (User) request.getAttribute("user");
+//        model.addAttribute("user", user);
 
         return "index";
+    }
+
+    @GetMapping("/guest/user/{userId}")
+    String guestUserGet(@PathVariable Integer userId, Model model){
+        model.addAttribute("user", userController.user);
+        model.addAttribute("guest", userService.getUserById(userId));
+
+        return "notUserProfile";
     }
 
     @GetMapping("/users")
@@ -77,10 +91,17 @@ public class PagesController {
     }
 
     @PostMapping("/register")
-    String registerPost(@PathParam("name") String name, @PathParam("surname") String surname, @PathParam("email") String email, @PathParam("password") String password) throws Exception {
+    String registerPost(@PathParam("name") String name, @PathParam("surname") String surname,
+                        @PathParam("email") String email, @PathParam("password") String password, Model model) throws Exception {
         User user = userService.saveUser(new User(name, surname, email, password));
 
-        if (user == null) throw new Exception("Error with register");
+        if (user == null) {
+            model.addAttribute("errorMsg", "User is null");
+            return "error";
+        }
+
+//        response.addCookie(new Cookie("user", user));
+        model.addAttribute("user", user);
         return "redirect:/user/" + user.getId();
     }
 
